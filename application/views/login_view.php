@@ -21,7 +21,7 @@
     				$data = array(
 		              'name'        => 'username',
 		              'id'          => 'username',
-		              'value'       => 'Username',
+		              'value'       => 'Enter your username',
 		              'maxlength'   => '100',
 		              'size'        => '50',
 		              'class'		=> 'textfieldstyle',
@@ -29,7 +29,6 @@
 		            );
 					echo form_input($data);
     			?>
-
     		</div>
     		<div>
     			<?php
@@ -47,6 +46,7 @@
     			
     		</div>
     		<div>
+    			<a href="dashboard">
     			<?php
     				$data = array(
 		              'name'        => 'login_btn',
@@ -57,9 +57,14 @@
 		            );
 					echo form_submit($data);
     			?>
+    			</a>
     		</div>
     		<div style="margin-top:10px;">
     			<a style="position:relative; left:7.5%; color:#F00; font-family:arial; font-size:12px;" href="#">Forgotten password</a>
+    		</div>
+
+    		<div style="font-family:arial; color:#97b704; font-size:12px; text-align:center; margin-top: 8%;">
+    			Port Health Services Copyright 2014.
     		</div>
 		</div>
 	</div>
