@@ -39,3 +39,16 @@ body{
 	position: relative;
 	left: 7.5%;
 }
+.dashboardtable{
+	border-collapse: collapse;
+	font-family: verdana;
+	font-size: 12px;
+}
+.dashboardtable tr td{
+	height: 40px;
+	text-align: center;
+}
+a{
+	text-decoration: none;
+}
+.applicationstatus 
