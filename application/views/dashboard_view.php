@@ -4,17 +4,46 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title>Dashboard</title>
 <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>assets/css/style.css">
+<script src="http://localhost:8888/porthealth/assets/js/jquery.js"></script>
+<script>
+	$(document).ready(function(){
+		$("#new_btn").click(function(){
+			$("#overlay").animate({width:$(document).width()},100).animate({height:$(document).height()},100);
+			$("#popup").css("visibility","visible");
+		});
+	});
+</script>
 </head>
 
 <body>
+	<div id="overlay" style="position:absolute; z-index:1; left:0; top:0; background-color:#000; opacity:.7;"></div>
+	<div id="popup" style="position:absolute; border:1px solid #ccc; visibility:hidden; z-index:2; height: 600px; width: 600px; right:0; left:0; margin:auto; background-color:#FFF; top:10%; ">
+		<div style="margin-top:10px;">
+			<select id="document_type" class="textfieldstyle">
+				<option value="exporthealthcert">Export Health Certificate</option>
+				<option value="importClearancecert">Import Clearance Certificate</option>
+			</select>
+			<script>
+				$("#document_type").change(function(){
+					var doctype=$(this).val();
+					if(doctype=="exporthealthcert"){
+						$("#exportimportform").load("http://localhost:8888/porthealth/index.php/exporthealthcert");
+					}
+				});
+
+			</script>
+		</div>
+		<div id="exportimportform" style="margin-top:10px;"></div>
+	</div>
 	<div class="header">
-		<span>PORTHEALTH SERVICES</span>
+		<span>PORTHEALTH</span> <span style="color:#84c100;">SERVICES</span>
 		
-		<span style="position:relative; left: 75%; font-size:12px;">
+		<span style="position:relative; left: 70%; font-size:12px;">
 			<span>
 				<img src="<?php echo base_url(); ?>assets/images/user_icon.png" />
 			</span>
 			<span>John Kulova</span>
+			<span><a style="color: #FFF;" href="http://localhost:8888/porthealth/index.php/login">Logout</a></span>
 		</span>
 	</div>
 	<div style="padding-top: 20px; padding-left: 10px;">
@@ -32,7 +61,7 @@
 			$data = array(
 		              'name'        => 'searchucr',
 		              'id'          => 'searchucr',
-		              'value'       => 'Search for UCR here',
+		              'placeholder' => 'Search for UCR here',
 		              'maxlength'   => '100',
 		              'size'        => '50',
 		              'style'		=> 'height:25px; padding-left:10px;'
@@ -49,45 +78,67 @@
 		<span id="rejected" class="applicationstatus" style="margin-left:20px;">
 			<a style="color:#ff0000; font-family:verdana;" href="#">Rejected - 5</a>
 		</span>
+		<?php
+		$user=$this->session->userdata('user');
+		if($user=="applicant"){
+		?>
+		<span>
+			<?php
+				$data = array(
+		              'name'        => 'new_btn',
+		              'id'          => 'new_btn',
+		              'value'       => 'true',
+		              'class'		=> 'buttonstyle',
+		              'style'		=> 'margin-top: 10px;',
+		              'content'		=> 'New application'
+		            );
+				echo form_button($data);
+			?>
+		</span>
+		<?php
+		}
+		?>
 	</div>
 	<div style="margin-top:10px; padding-left:10px; padding-right:10px;">
 		<table width="100%" border="1" class="dashboardtable">
 		  <tr style="background-color:#868686; color: #fff; height: 50px; text-align:center;">
-		    <td>Reference No.</td>
+		    <td>Application No.</td>
 		    <td>Approval status</td>
 		    <td>UCR No.</td>
-		    <td>Consign Type</td>
+		    <td>Type</td>
 		    <td>Process Name</td>
 		    <td>Date submitted</td>
+		    <?php
+		    	$user=$this->session->userdata('user');
+		    	if($user!="applicant"){
+		    ?>
 		    <td>Approval history</td>
+		    <?php
+		    }
+		    ?>
 		  </tr>
+		  <?php
+		  foreach($appdata as $row){
+		  ?>
 		  <tr>
-		    <td>MD201300HCDAEP0100000295</td>
-		    <td>Approved pending eDoc Fee</td>
+		    <td><?php  echo $row["application_no"]; ?></td>
+		    <td><?php echo $row["status"]; ?></td>
 		    <td>0</td>
-		    <td>Master Approval</td>
-		    <td>EPA Permit and Consumer Consignment</td>
-		    <td>06-06-2013 11:11:37</td>
-		    <td><a href="#">view</a></td>
+		    <td>Export</td>
+		    <td><?php echo $row["status"]; ?></td>
+		    <td><?php echo $row["date"]; ?></td>
+		    <?php
+		    	$user=$this->session->userdata('user');
+		    	if($user!="applicant"){
+		    ?>
+		    <td><a href="http://localhost:8888/porthealth/index.php/applicationview/?app_no=<?php echo $row["application_no"]; ?>">view</a></td>
+		    <?php
+		    	}
+		    ?>
 		  </tr>
-		  <tr>
-		    <td>CD201300HCDAEP0100000295</td>
-		    <td>Rejected</td>
-		    <td>UCR201300000201</td>
-		    <td>Consignment</td>
-		    <td>PVOC DOC TEST</td>
-		    <td>06-06-2013 11:11:37</td>
-		    <td><a href="#">view</a></td>
-		  </tr>
-		  <tr>
-		    <td>MD201300HCDAEP0100000295</td>
-		    <td>Approved pending eDoc Fee</td>
-		    <td>0</td>
-		    <td>Master Approval</td>
-		    <td>EPA Permit and Consumer Consignment</td>
-		    <td>06-06-2013 11:11:37</td>
-		    <td><a href="#">view</a></td>
-		  </tr>
+		 <?php
+		}
+		 ?>
 		</table>
 	</div>
 </body>

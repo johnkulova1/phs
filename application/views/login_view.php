@@ -10,18 +10,24 @@
 	<!--<div id="header">
 	</div>-->
 	<div id="content">
-		<div style="font-family:arial; color:#97b704; font-size:18px; text-align:center; margin-top: 100px;">PORTHEALTH SERVICES</div>
+		<div style="margin-top: 30px;">
+			<img src="<?php echo base_url(); ?>assets/images/court_of_arms.jpeg" width="100" height="100" style="margin-right:auto; margin-left:auto; display:block;" />
+		</div>
+		<div style="font-family:myriad; color:#97b704; font-size:18px; text-align:center; margin-top: 30px;">PORTHEALTH SERVICES</div>
 		<div id="login_window">
 			<div>
 				<img src="<?php echo base_url(); ?>assets/images/login_icon.png" style="margin-left: auto;
     margin-right: auto; display: block;"/>
 			</div>
+			<?php
+			echo form_open('login/authenticate_user');
+			?>
     		<div>
     			<?php
     				$data = array(
 		              'name'        => 'username',
 		              'id'          => 'username',
-		              'value'       => 'Enter your username',
+		              'placeholder' => 'Enter your username',
 		              'maxlength'   => '100',
 		              'size'        => '50',
 		              'class'		=> 'textfieldstyle',
@@ -35,7 +41,7 @@
     				$data = array(
 		              'name'        => 'password',
 		              'id'          => 'password',
-		              'value'       => 'Password',
+		              'placeholder' => 'Password',
 		              'maxlength'   => '100',
 		              'size'        => '50',
 		              'class'		=> 'textfieldstyle',
@@ -59,12 +65,19 @@
     			?>
     			</a>
     		</div>
+    		<?php
+    			echo form_close();
+    		?>
     		<div style="margin-top:10px;">
-    			<a style="position:relative; left:7.5%; color:#F00; font-family:arial; font-size:12px;" href="#">Forgotten password</a>
+    			<a style="position:relative; left:7.5%; color:#0c5800; font-family:myriad; font-size:12px;" href="register">New User?</a>
     		</div>
 
-    		<div style="font-family:arial; color:#97b704; font-size:12px; text-align:center; margin-top: 8%;">
-    			Port Health Services Copyright 2014.
+    		<div style="margin-top:10px;">
+    			<a style="position:relative; left:7.5%; color:#F00; font-family:myriad; font-size:12px;" href="#">Forgotten password</a>
+    		</div>
+
+    		<div style="font-family:myriad; color:#97b704; font-size:12px; text-align:center; margin-top: 5%;">
+    			Port Health Services Copyright 2015.
     		</div>
 		</div>
 	</div>
