@@ -37,7 +37,6 @@
 	</div>
 	<div class="header">
 		<span>PORTHEALTH</span> <span style="color:#84c100;">SERVICES</span>
-		
 		<span style="position:relative; left: 70%; font-size:12px;">
 			<span>
 				<img src="<?php echo base_url(); ?>assets/images/user_icon.png" />

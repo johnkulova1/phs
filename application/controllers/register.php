@@ -10,12 +10,12 @@ class Register extends CI_Controller{
 		$idnumber=$this->input->post('idnumber');
 		$address=$this->input->post('address');
 		$password=$this->input->post('password');
+		$password=md5($password);
 		$verifypass=$this->input->post('verifypassword');
-		$userlevel="applicant";
-		$arr=array('names'=>$names, 'phone'=>$phone, 'idnumber'=>$idnumber,'address'=>$address,'userlevel'=>$userlevel);
-		$json=json_encode($arr);
+		$userlevel="individual";
+		$arr=array('names'=>$names, 'idnumber'=>$idnumber, 'address'=>$address, 'userlevel'=>$userlevel, 'email'=>$email,'password'=>$password, 'phone'=>$phone);
 		$this->load->model('phsmodel');
-		$this->phsmodel->register_user($json,$password,$email);
+		$this->phsmodel->register_user($arr);
 		$this->load->view('login_view');
 	}
 }

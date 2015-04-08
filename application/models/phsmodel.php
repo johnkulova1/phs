@@ -3,15 +3,8 @@ class Phsmodel extends CI_Model{
 	function __construct(){
 		parent::__construct();
 	}
-	function register_user($json,$password,$email){
-		$json=$this->db->escape($json);
-		$password=md5($password);
-		$data=array(
-			'email'=>$email,
-			'password'=>$password,
-			'params'=>$json
-			);
-		$this->db->insert('users',$data);
+	function register_user($arr){
+		$this->db->insert('users',$arr);
 	}
 	function login_user($credentials){
 		$query=$this->db->get_where("users", array('email'=>$credentials["email"], 'password'=>md5($credentials["password"])));
@@ -81,6 +74,18 @@ class Phsmodel extends CI_Model{
 		$sql="SELECT * FROM applications WHERE application_no='".$app_no."'";
 		$result=$this->db->query($sql);
 		return $result;
+	}
+	function save_staff($arr){
+		$result=$this->db->insert("users",$arr);
+		if($result){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	function change_password($email, $password){
+		$password=md5($password);
+		$sql="";
 	}
 }
 ?>
